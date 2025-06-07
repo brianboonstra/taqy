@@ -1,0 +1,20 @@
+[project]
+name = "taqy"
+version = "0.42.0"
+description = "Efficient queries of trade and book data in bars from the WRDS TAQ mmillisecond database"
+authors = [
+    {name = "Brian K. Boonstra"}
+]
+license = {text = "GPL-3.0-or-later"}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pytz (>=2025.2,<2026.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "wrds (>=3.3.0,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
