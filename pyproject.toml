@@ -1,20 +1,43 @@
 [project]
 name = "taqy"
 version = "0.42.0"
-description = "Efficient queries of trade and book data in bars from the WRDS TAQ mmillisecond database"
+description = "Efficient queries of trade and book data in bars. Supports the WRDS TAQ millisecond database."
 authors = [
-    {name = "Brian K. Boonstra"}
+    {name = "Brian K. Boonstra", email="software@boonstra.org"}
+]
+keywords=[
+    "WRDS",
+    "TAQ",
+    "equity",
+    "market"
 ]
 license = {text = "GPL-3.0-or-later"}
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 dependencies = [
     "pytz (>=2025.2,<2026.0)",
     "pandas (>=2.2.3,<3.0.0)",
     "wrds (>=3.3.0,<4.0.0)"
 ]
+classifiers = [
+    # Soon:
+    #   5 - Production/Stable
+    "Development Status :: 4 - Beta",
 
+    # Indicate who your project is intended for
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Topic :: Database",
+    "Topic :: Office/Business :: Financial :: Investment"
+]
+
+[project.optional-dependencies]
+dev = ["black", "flake8"]
+parquet-fastparquet = ["fastparquet>=0.8"]
+parquet-pyarrow = ["pyarrow>=11.0.0"]
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0", "pytest"]
 build-backend = "poetry.core.masonry.api"
+
+
