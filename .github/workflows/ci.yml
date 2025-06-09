@@ -26,21 +26,21 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest flake8 black pandas wrds
+        pip install pytest flake8 black pandas wrds fastparquet pyarrow
 
     - name: Install taqy
       run: |
         pip install -e .
 
-    - name: Run tests with pytest
+    - name: Run tests
       run: |
-        pytest tests
+        pytest
 
     - name: Check formatting with black
       run: black . --check
 
     - name: Run linting with flake8
-      run: flake8 .
+      run: flake8 --ignore=E501,E266,W291 .
 
     - name: Install build tools
       run: |

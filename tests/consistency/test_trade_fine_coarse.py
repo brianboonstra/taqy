@@ -23,11 +23,10 @@ def consistency_check_bar_sums():
         if n > 1:
             gixs = (offset + np.arange(df.shape[0])) // n
             gup = gup.groupby(gixs).sum()
-            ix = np.arange(len(times))[offset::n]
             if offset:
                 wtime_ix = np.arange(len(times))[::n]
             else:
-                wtime_ix = np.arange(len(times))[(n - 1) :: n]
+                wtime_ix = np.arange(len(times))[(n - 1) :: n]  # noqa: E203
             times = times.iloc[wtime_ix]
         gup = gup.reset_index()[["num_trades", "total_qty", "notional"]].set_index(
             times
