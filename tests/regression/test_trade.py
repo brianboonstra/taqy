@@ -3,7 +3,6 @@ import pytest
 import datetime
 
 import pandas as pd
-from pygments.lexer import include
 
 from taqy.usequity import taq_trade_bars_on_date
 
@@ -11,7 +10,6 @@ GOLD_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "gold_files"
 
 
 def read_gold_parquet(filename):
-    global GOLD_DIR
     filepath = os.path.join(GOLD_DIR, filename)
     if not os.path.isfile(filepath):
         raise FileNotFoundError(f"Expected gold parquet file not found: {filepath}")
@@ -20,7 +18,6 @@ def read_gold_parquet(filename):
 
 
 def write_gold_parquet(filename, df):
-    global GOLD_DIR
     filepath = os.path.join(GOLD_DIR, filename)
     df.to_parquet(os.path.join(GOLD_DIR, filepath))
 

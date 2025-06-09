@@ -1,1 +1,1 @@
-name = 'taqy'
+name = "taqy"

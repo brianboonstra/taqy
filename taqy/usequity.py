@@ -43,7 +43,6 @@ def set_default_connection(cnxn: wrds.sql.Connection):
 def get_wrds_connection(
     wrds_db: wrds.sql.Connection | None = None,
 ) -> wrds.sql.Connection:
-    global DEFAULT_WRDS_CONNECTION
     db = wrds_db or DEFAULT_WRDS_CONNECTION
     if db is None:
         raise ValueError(
@@ -55,7 +54,6 @@ def get_wrds_connection(
 
 
 def connect_to_wrds(reconnect: bool = False, **kwargs):
-    global DEFAULT_WRDS_CONNECTION
     if DEFAULT_WRDS_CONNECTION is None or DEFAULT_WRDS_CONNECTION.connection.closed:
         reconnect = True
     if reconnect:
@@ -107,7 +105,7 @@ def bar_sql(bar_minutes: int) -> str:
 def window_time_sql(bar_minutes: int) -> str:
     assert bar_minutes == 60 or (bar_minutes <= 30 and 30 % bar_minutes == 0)
     if bar_minutes == 60:
-        return f"date + (1 + EXTRACT(HOUR FROM time_m) || ':00')::interval"
+        return "date + (1 + EXTRACT(HOUR FROM time_m) || ':00')::interval"
     else:
         return f"date + (EXTRACT(HOUR FROM time_m) || ':' || {bar_minutes} * DIV(EXTRACT(MINUTE FROM time_m),{bar_minutes}))::interval + ( '00:{bar_minutes}' )::interval"
 
@@ -218,7 +216,7 @@ def taq_trade_bars_sql(
             else "0::smallint as time_m_nano"
         )
 
-        fields = f"""  trade_stats_in_bar.ticker
+        fields = """  trade_stats_in_bar.ticker
                 , trade_stats_in_bar.date
                 , trade_stats_in_bar.window_time
                 , vwap

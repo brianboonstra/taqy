@@ -9,7 +9,6 @@ GOLD_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "gold_files"
 
 
 def read_gold_sql(filename):
-    global GOLD_DIR
     filepath = os.path.join(GOLD_DIR, filename)
     if not os.path.isfile(filepath):
         raise FileNotFoundError(f"Expected gold file not found: {filepath}")
@@ -18,7 +17,6 @@ def read_gold_sql(filename):
 
 
 def write_gold_sql(filename, content):
-    global GOLD_DIR
     filepath = os.path.join(GOLD_DIR, filename)
     with open(filepath, "w") as f:
         f.write(content)

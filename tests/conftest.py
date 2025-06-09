@@ -44,10 +44,11 @@ def use_db_cache(request) -> bool:
     Returns True if we should read from the cached data on disk
     (i.e., NOT updating the db cache), or False if we should do real queries.
     """
-    return not (
-        request.config.getoption("--avoid-db-cache")
-        or request.config.getoption("--write-db-cache")
-    )
+    if request.config.getoption("--avoid-db-cache") or request.config.getoption(
+        "--write-db-cache"
+    ):
+        return False
+    return True
 
 
 @pytest.fixture(scope="module")
@@ -114,7 +115,7 @@ def mock_or_call_cached_sql(use_db_cache, db_cache_dir, write_db_cache):
             set_default_connection(manual_connection)
         else:
             print(
-                f"No WRDS_PASSWORD in environment, using standard connection routines",
+                "No WRDS_PASSWORD in environment, using standard connection routines",
                 file=sys.stderr,
             )
             connect_to_wrds(wrds_username=wrds_username)
