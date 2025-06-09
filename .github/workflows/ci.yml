@@ -28,6 +28,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest flake8 black pandas wrds
 
+    - name: Install taqy
+      run: |
+        pip install -e .
+
     - name: Run tests with pytest
       run: |
         pytest tests
