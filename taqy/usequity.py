@@ -113,7 +113,7 @@ def window_time_sql(bar_minutes: int) -> str:
 
 
 def taq_trade_bar_select_sql(
-    tickers: list[str] | str, restrict_to_exchanges: tuple[str] | str | None = None
+    tickers: list[str] | str, restrict_to_exchanges: tuple[str, ...] | str | None = None
 ) -> str:
     assert bool(tickers)
 
@@ -147,7 +147,7 @@ def taq_trade_bar_statistics_sql(
     date: datetime.date,
     bar_minutes: int = 30,
     group_by_exchange: bool = False,
-    restrict_to_exchanges: tuple[str] | None = None,
+    restrict_to_exchanges: tuple[str, ...] | str | None = None,
 ) -> str:
     """
     Return SQL suitable for finding aggregate bar statistics from WRDS / TAQ
@@ -192,7 +192,7 @@ def taq_trade_bars_sql(
     date: datetime.date,
     bar_minutes: int = 30,
     group_by_exchange: bool = False,
-    restrict_to_exchanges: tuple[str] | None = None,
+    restrict_to_exchanges: tuple[str, ...] | str | None = None,
     include_first_and_last: bool = False,
     wrds_db: wrds.sql.Connection | None = None,
 ) -> str:
