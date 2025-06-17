@@ -126,9 +126,9 @@ def taq_trade_bar_select_sql(
         exchange_select = "1=1"
     else:
         if hasattr(restrict_to_exchanges, "strip"):  # Allow single exchange as argument
-            exchange_select = f"ex = {restrict_to_exchanges}"
+            exchange_select = f"ex = '{restrict_to_exchanges}'"
         elif len(restrict_to_exchanges) == 1:
-            exchange_select = f"ex = {restrict_to_exchanges[0]}"
+            exchange_select = f"ex = '{restrict_to_exchanges[0]}'"
         else:
             exchange_select = f"ex IN {tuple(restrict_to_exchanges)}"
 
