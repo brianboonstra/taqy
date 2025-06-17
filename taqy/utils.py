@@ -8,13 +8,17 @@ import pandas as pd
 
 def _make_timestamp(r: pd.Series, field_name_root) -> pd.Timestamp:
     """Take a TAQ row and convert to more Pythonic time information"""
-    try:
-        t = datetime.datetime.combine(r.date, r[field_name_root])
-    except TypeError as te:
-        print(
-            f"Unable to form a datetime from a {r.date.__class__} equal to {r.date} and a '{field_name_root}' of class {r[field_name_root].__class__} equal to {r[field_name_root]}"
-        )
-        raise te
+    row_time = r[field_name_root]
+    if isinstance(row_time, pd.Timedelta):
+        t = r.date + row_time
+    else:
+        try:
+            t = datetime.datetime.combine(r.date, row_time)
+        except TypeError as te:
+            print(
+                f"Unable to form a datetime from a {r.date.__class__} equal to {r.date} and a '{field_name_root}' of class {row_time.__class__} equal to {row_time}"
+            )
+            raise te
     loc_t = pd.to_datetime(t).tz_localize(pytz.timezone("America/New_York"))
     pdt = loc_t + pd.Timedelta(r[f"{field_name_root}_ns"], unit="ns")
     return pdt
