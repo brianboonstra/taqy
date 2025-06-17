@@ -1,6 +1,6 @@
 [project]
 name = "taqy"
-version = "0.42.0"
+version = "0.42.4"
 description = "Efficient queries of trade and book data in bars. Supports the WRDS TAQ millisecond database."
 authors = [
     {name = "Brian K. Boonstra", email="software@boonstra.org"}
